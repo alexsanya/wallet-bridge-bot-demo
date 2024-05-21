@@ -1,0 +1,22 @@
+{
+  "name": "wallet-bridge-bot-demo",
+  "version": "1.0.0",
+  "description": "Telegram bot to demo wallet bridge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "telegram",
+    "bot",
+    "Dapp"
+  ],
+  "author": "Oleksandr Koval",
+  "license": "ISC",
+  "dependencies": {
+    "restify": "^11.1.0",
+    "telegraf": "^4.16.3"
+  }
+}
