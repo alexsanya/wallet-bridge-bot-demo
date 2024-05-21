@@ -1,9 +1,10 @@
-const { Telegraf } = require('telegraf')
-const restify = require('restify')
+import { Telegraf } from 'telegraf'
+import restify from 'restify'
+import corsMiddleware from 'cors'
 
-const PORT = 8085
+const PORT = 80
 const EXPLORER_URL="https://polygonscan.com"
-const EVENTS_ENDPOINT="http://ec2-18-209-66-210.compute-1.amazonaws.com:8085/event"
+const EVENTS_ENDPOINT="http://ec2-18-209-66-210.compute-1.amazonaws.com/event"
 const DEMO_SIGNATURE_URL = 'http://wallet-bridge.s3-website-us-east-1.amazonaws.com/?botName={botName}&type=signature&uid={uid}&source=https%3A%2F%2Fstatic-img-hosting.s3.amazonaws.com%2Fsignature.json&callback=' + 
   encodeURIComponent(EVENTS_ENDPOINT)
 const DEMO_TRANSACTION_URL = 'http://wallet-bridge.s3-website-us-east-1.amazonaws.com/?botName={botName}&type=transaction&uid={uid}&source=https%3A%2F%2Fstatic-img-hosting.s3.amazonaws.com%2Ftransaction.json&callback='+
@@ -35,7 +36,16 @@ async function sendMessage(chatId, text) {
   }
 }
 
-const server = restify.createServer({name: 'w3Bridge_bot'})
+const server = restify.createServer({name: 'w3Bridge_bot'});
+
+const cors = corsMiddleware({
+  credentials: true,
+  preflightMaxAge: 5,
+  origin: function (origin, callback) {
+      callback(null, origin)
+  }
+});
+server.pre(cors);
 
 server.use(restify.plugins.bodyParser())
 server.post('/event', eventHandler);
