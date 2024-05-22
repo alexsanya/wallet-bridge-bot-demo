@@ -3,7 +3,7 @@ import corsMiddleware from 'cors'
 import { formSignatureData } from './utils.js'
 import { PORT, EXPLORER_URL } from './config.js'
 
-export const startServer = (sendMesage) => {
+export const startServer = (sendMessage) => {
   const server = restify.createServer({name: 'w3Bridge_bot'});
 
   const cors = corsMiddleware({

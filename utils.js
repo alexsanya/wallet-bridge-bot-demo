@@ -12,14 +12,14 @@ export const buildSignatureUrl = ({ message, botName, chatId }) => {
 }
 
 export const formSignatureData = text => {
-  return JSON.stringify({
+  return {
     "domain": {
       "name": "Tether USD",
       "version": "1",
       "chainId": 1,
       "verifyingContract": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
     },
-    "primaryType": "Permit",
+    "primaryType": "DemoData",
     "types": {
       "DemoData": [
         {
@@ -31,6 +31,6 @@ export const formSignatureData = text => {
     "message": {
       "message": text
     }
-  })
+  }
 }
 
