@@ -31,7 +31,7 @@ export const startServer = (sendMessage) => {
   }
 
   async function getTransaction(req, res) {
-    res.json(formTransactionData())
+    res.json(formTransactionData(req.query.value))
   }
 
   async function eventHandler(req, res) {
