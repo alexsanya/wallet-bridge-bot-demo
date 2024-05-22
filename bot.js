@@ -1,6 +1,5 @@
 import { Telegraf } from 'telegraf'
-import { buildSignatureUrl } from './utils.js'
-import { DEMO_TRANSACTION_URL } from './config.js'
+import { buildSignatureUrl, buildTransactionUrl } from './utils.js'
 
 export const startBot = token => {
   const bot = new Telegraf(token)
@@ -37,12 +36,18 @@ export const startBot = token => {
     )
   }
 
-  function demoTransaction(ctx, args) {
+  function demoTransaction(ctx, value) {
     const chatId = ctx.chat.id
     console.log(`[${chatId}] Transaction request in chat`)
     console.log(`[${chatId}] Client data:`, ctx.chat)
 
-    ctx.reply(DEMO_TRANSACTION_URL.replace('{uid}', ctx.chat.id).replace('{botName}', ctx.botInfo.username))
+    ctx.reply(
+      buildTransactionUrl({
+        value,
+        botName: ctx.botInfo.username,
+        chatId: ctx.chat.id
+      })
+    )
   }
 
   bot.launch();

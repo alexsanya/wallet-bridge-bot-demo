@@ -1,6 +1,6 @@
 import restify from 'restify'
 import corsMiddleware from 'cors'
-import { formSignatureData } from './utils.js'
+import { formSignatureData, formTransactionData } from './utils.js'
 import { PORT, EXPLORER_URL } from './config.js'
 
 export const startServer = (sendMessage) => {
@@ -20,6 +20,7 @@ export const startServer = (sendMessage) => {
   server.post('/event', eventHandler);
 
   server.get('/signature', getSignature);
+  server.get('/transaction', getTransaction);
 
   server.listen(PORT, function() {
     console.log('%s listening at %s', server.name, server.url);
@@ -27,6 +28,10 @@ export const startServer = (sendMessage) => {
 
   async function getSignature(req, res) {
     res.json(formSignatureData(req.query.message))
+  }
+
+  async function getTransaction(req, res) {
+    res.json(formTransactionData())
   }
 
   async function eventHandler(req, res) {
